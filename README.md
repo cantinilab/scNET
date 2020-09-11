@@ -15,6 +15,9 @@ Please note that the notebook executes by default the comparison in human retina
 
 ## Input data
 The input data are available in the `./data/` folder. Each biological context corresponds to a different subfolder.
+* `./data/Retina` containes the datasets
+* `./data/CRC_Tcells` containes the datasets
+* `./data/hematopoiesis` containes the datasets
 
 ## Install the software environment
 
