@@ -19,16 +19,28 @@ As detailed in the paper, the data used for this benchmark are the following:
 * CRC T-cells: [Zhang et al.](https://www.nature.com/articles/s41597-019-0131-5) [Li et al.](https://www.nature.com/articles/ng.3818)
 * Hematopoiesis:[Hay et al. ](https://www.sciencedirect.com/science/article/pii/S0301472X18308051?via%3Dihub) [Setty et al.](https://www.nature.com/articles/s41587-019-0068-4)
 
-The preprocessed input data are available at XXX. Details on the preprocessing steps are rpovided in the methods of the paper. Download the two independent datasets of the biological context you want to test (retina, CRC T-cells, hematopoiesis) and save them in the `./data/` folder here provided. 
+The preprocessed input data are available at https://cloud.biologie.ens.fr/index.php/s/JuJgrIL1jC6yZh4/download. Details on the preprocessing steps are provided in the methods of the paper. To access all data:
+* Clone or download the scNET repository
+* From R terminal or Rstudio, run the following lines
+
+setwd('../scNET/')
+dataURL= 'https://cloud.biologie.ens.fr/index.php/s/JuJgrIL1jC6yZh4/download'
+download.file(dataURL, 'scNET_data.zip')
+
+* unzip downloaded downloaded file from R
+
+unzip('scNET_data.zip')
 
 ## Install the software environment
 
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
-*
+* Create conda environment from yml in scNET repository by entering the following line in a terminal
+
+conda env create -f scNET.yml
 
 ## Run the notebook
 
-* Enter the conda environment: `conda activate XXX`.
+* Enter the conda environment: `conda activate scNET`.
 * Launch the notebook with `jupyter-notebook`.
 
 ##  Cite the work
