@@ -23,20 +23,29 @@ The preprocessed input data are available at https://cloud.biologie.ens.fr/index
 * Clone or download the scNET repository
 * From R terminal or Rstudio, run the following lines
 
+```
 setwd('../scNET/')
 dataURL= 'https://cloud.biologie.ens.fr/index.php/s/JuJgrIL1jC6yZh4/download'
 download.file(dataURL, 'scNET_data.zip')
-
-* unzip downloaded downloaded file from R
-
 unzip('scNET_data.zip')
+```
+
+* In macOS environment, unzipping the data file from the terminal may be more efficient:
+
+```
+cd ~/scNET/
+unzip scNET_dat.zip
+```
+
 
 ## Install the software environment
 
 * Install conda from https://docs.conda.io/en/latest/miniconda.html
 * Create conda environment from yml in scNET repository by entering the following line in a terminal
 
+```
 conda env create -f scNET.yml
+```
 
 ## Run the notebook
 
