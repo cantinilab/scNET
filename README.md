@@ -19,7 +19,9 @@ As detailed in the paper, the data used for this benchmark are the following:
 * CRC T-cells: [Zhang et al.](https://www.nature.com/articles/s41597-019-0131-5) [Li et al.](https://www.nature.com/articles/ng.3818)
 * Hematopoiesis:[Hay et al. ](https://www.sciencedirect.com/science/article/pii/S0301472X18308051?via%3Dihub) [Setty et al.](https://www.nature.com/articles/s41587-019-0068-4)
 
-The preprocessed input data are available at https://cloud.biologie.ens.fr/index.php/s/JuJgrIL1jC6yZh4/download. Details on the preprocessing steps are provided in the methods of the paper. To access all data:
+The preprocessed input data are available at https://cloud.biologie.ens.fr/index.php/s/JuJgrIL1jC6yZh4/download. Details on the preprocessing steps are provided in the methods of the paper. 
+
+To access all data:
 * Clone or download the scNET repository
 * From R terminal or Rstudio, run the following lines
 
