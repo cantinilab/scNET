@@ -1,5 +1,6 @@
 ###
 library(igraph)
+library(pwr)
 
 ###Post processing function selects most interesting links from raw ppcor results 
 ###according to link weight (correlation coefficient)
