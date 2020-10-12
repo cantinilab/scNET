@@ -46,6 +46,7 @@ unzip scNET_dat.zip
 * Create conda environment from yml in scNET repository by entering the following line in a terminal
 
 ```
+cd scNET
 conda env create -f scNET.yml
 ```
 
@@ -54,6 +55,14 @@ conda env create -f scNET.yml
 * Enter the conda environment: `conda activate scNET`.
 * Launch the notebook with `jupyter-notebook`.
 
-##  Cite the work
+## Cite the work
 The preprint describing momix is available in BioRxiv
 xxxx
+
+## Additional Networks
+Users can analyze the reproducibility of networks produced by other algorithms using this workflow. 
+To do so, save two networks inferred with independant datasets into the scNET Results folder.
+Networks must be formatted into 3 columns (colum 1: gene1, column 2: gene2, column 3: interaction weight), in `.tsv` or tab seperated file format
+Then, run notebook section `Algorithm reproducibility evaluation`to calculate metrics.
+
+
