@@ -161,8 +161,6 @@ Custom.Rcis=function(input.dir='scNET/Results',
 
 
 #Reproducibility mesures
-library(igraph)
-
 Intersection.index= function(netA, netB, Directed=T){
   if(nrow(netA)> nrow(netB)){
     trans=netA
@@ -182,7 +180,6 @@ Intersection.index= function(netA, netB, Directed=T){
   return(index)
 }
 
-#result= data.frame(inter_prop= prop, Ninter= length(inter), Nmin=min(length(charA), length(charB)) )
 
 #Weighted Jaccard index 
 wjs= function(netA, netB){
@@ -256,16 +253,16 @@ quantile.cut= function(net, percent){
   return(thresh.list)
 }
 
-quantile.stats= function(network1, network2, percent, Directed=T){
+quantile.stats= function(network1, network2, percent, Directed=T, label){
   FirstThresholded=  quantile.cut(network1, percent)
   SecondThresholded= quantile.cut(network2, percent)
-  res.df= data.frame(network_size_net1=c(), network_size_net2=c(), intersection=c(), WJS=c(), Quantile=c())
+  res.df= data.frame(network_size_net1=c(), network_size_net2=c(), intersection=c(), WJS=c(), Quantile=c(), Algorithm=c())
   for(i in 1:length(percent)){
     N_network1= nrow(FirstThresholded[[i]])
     N_network2= nrow(SecondThresholded[[i]])
     inter=Intersection.index(FirstThresholded[[i]], SecondThresholded[[i]], Directed= Directed)
     wjs=wjs.edge(FirstThresholded[[i]], SecondThresholded[[i]])
-    res= c(N_network1, N_network2, inter, wjs, percent[i])
+    res= c(N_network1, N_network2, inter, wjs, percent[i], label)
     res.df[i,]= res
   }
   return(res.df)
