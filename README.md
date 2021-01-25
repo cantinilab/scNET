@@ -5,6 +5,9 @@ The benchmarked methods are:
 * [PPCOR](https://cran.r-project.org/web/packages/ppcor/index.html)
 * [GRNBoost2](https://github.com/aertslab/GRNBoost)
 * [GENIE3](https://bioconductor.org/packages/release/bioc/html/GENIE3.html)
+* [CLR](https://rdrr.io/bioc/minet/man/clr.html)
+* [GeneNet](https://cran.r-project.org/web/packages/GeneNet/index.html)
+
 
 The methods are tested in three biological contexes:
 1. human retina
@@ -57,7 +60,7 @@ conda env create -f scNET.yml
 
 ## Cite the work
 The preprint describing momix is available in BioRxiv
-xxxx
+https://www.biorxiv.org/content/10.1101/2020.11.10.375923v1
 
 ## Additional Networks
 Users can analyze the reproducibility of networks produced by other algorithms using this workflow. 
