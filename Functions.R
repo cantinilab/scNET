@@ -30,22 +30,27 @@ Custom.Rcis=function(input.dir='scNET/Results',
                      output.dir='scNET/Results',
                      MinGenesetSize=0, 
                      directed=T){
+  
   library(tools)
   library(RcisTarget)
-  Db.dir= file_path_as_absolute(chosenDb)
+  Db.dir= file_path_as_absolute(dirname(chosenDb))
+
   setwd(Db.dir)
+   
+    
   motifRankings <- importRankings(chosenDb)
   data(motifAnnotations_hgnc)
+  setwd(input.dir)
   
-  setwd(Input.dir)
-  input.files=list.files(pattern = pattern)
+  # read tsv files excluding other file types
+  input.files=list.files(pattern = glob2rx(paste(pattern, "*.tsv", sep="")))
+
   Networks= lapply(input.files, read.table, header=T)
-  names(Networks)= gsub('.Rds', '', input.files)
+  names(Networks) <- file_path_sans_ext(basename(input.files))
   Networks= lapply(Networks, function(x){
-    colnames(x)=c('gene1', 'gene2', 'weight')
-    x
-  })
-  
+      colnames(x)=c('gene1', 'gene2', 'weight') 
+      x})
+    
   TFtoTargetNetworks= lapply(Networks, function(x){
     if(directed==F){
       LinkstoKeep=c()
@@ -225,16 +230,26 @@ Rcis.percent= function(RcisResult){
 }
 
 Reproducibility.stats= function(Algorithm_names, Results.dir){
+  Algorithm_paths <- paste(Algorithm_names, "*.tsv", sep="")
+  
   Dir= file_path_as_absolute(Results.dir)
-  res.df= data.frame(Intersection_index=c(), WJS=c(), Algorithm=c())
+  setwd(Dir)
+  res.df= data.frame(Intersection_index=rep("", length(Algorithm_names)), 
+                   WJS=rep("", length(Algorithm_names)), 
+                   Algorithm=rep("", length(Algorithm_names)))
+
   for(i in 1:length(Algorithm_names)){
-    files= list.files(path= Dir, pattern= Algorithm_names[i])
-    networks= lapply(files, read.table)
+    files=list.files(path= Dir, pattern= glob2rx(Algorithm_paths[i]))
+    
+    if (startsWith(Algorithm_names[i], "PPCOR")){
+      networks= lapply(files, read.table, header=T)
+    } else {networks= lapply(files, read.table)}
     index= Intersection.index(networks[[1]], networks[[2]])
     WJS= wjs(networks[[1]], networks[[2]])
-    res= c(index, WJS, Algorithm_names[i])
+    res= c(index, WJS, basename(Algorithm_names[i]))
     res.df[i,]=res
-  }
+    print(paste(Algorithm_names[i], "DONE!", collapse = " : "))
+     }
   return(res.df)
 }
 
@@ -256,7 +271,12 @@ quantile.cut= function(net, percent){
 quantile.stats= function(network1, network2, percent, Directed=T, label){
   FirstThresholded=  quantile.cut(network1, percent)
   SecondThresholded= quantile.cut(network2, percent)
-  res.df= data.frame(network_size_net1=c(), network_size_net2=c(), intersection=c(), WJS=c(), Quantile=c(), Algorithm=c())
+  res.df= data.frame(network_size_net1=rep("", length(percent)), 
+                     network_size_net2=rep("", length(percent)), 
+                     intersection=rep("", length(percent)),
+                     WJS=rep("", length(percent)), 
+                     Quantile=rep("", length(percent)), 
+                     Algorithm=rep("", length(percent)))
   for(i in 1:length(percent)){
     N_network1= nrow(FirstThresholded[[i]])
     N_network2= nrow(SecondThresholded[[i]])
