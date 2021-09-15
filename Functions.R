@@ -21,6 +21,38 @@ ppcor.post= function(PPCOR.res, coefficient.threshold){
   return(ppcor)
 }
 
+###Pre processing dataset in order to use CLR: remove genes with zero counts from the expression matrix
+remove.zero.count= function(net){
+  test= colSums(net)
+  index= which(test != 0)
+  newnet= net[,index]
+  return(newnet)
+}
+
+
+###Post processing CLR networks: replace node numbers with gene names 
+transform.node.labels= function(genenetresult, node.labels){
+  gene1= c()
+  gene2= c()
+  for(i in 1:nrow(genenetresult)){
+    first= as.numeric(genenetresult[i,2])
+    second= as.numeric(genenetresult[i,3])
+    first= node.labels[first]
+    second= node.labels[second]
+    gene1= c(gene1, first)
+    gene2= c(gene2, second)
+  }
+  res= data.frame(gene1= gene1, gene2= gene2)
+  return(res)
+}
+
+###Post processing CLR networks: return a data frame with column1 = gene1, column 2= gene2, column 3= weight
+BuildNetworks= function(matrix){
+  G=graph_from_adjacency_matrix(matrix, mode= 'undirected', weighted = TRUE, diag= FALSE, add.colnames = NULL)
+  E=get.data.frame(G, what = 'edges')
+  colnames(E)= c('gene1', 'gene2', 'weight')
+  return(E)
+}
 
 
 #Custom Rcistarget function to select high confidence links
